@@ -1,0 +1,20 @@
+{
+  "app": {
+    "title": "Auditeur d'accessibilité WCAG",
+    "tagline": "Vérifiez la conformité d'une page web aux Règles pour l'accessibilité des contenus Web (WCAG) 2.1, niveau AA, et suivez son évolution dans le temps."
+  },
+  "nav": {
+    "home": "Accueil",
+    "dashboard": "Tableau de bord",
+    "history": "Historique des scans",
+    "skipToContent": "Passer au contenu principal"
+  },
+  "language": {
+    "switchTo": "English",
+    "current": "Français"
+  },
+  "footer": {
+    "sourceCode": "Code source",
+    "accessibilityStatement": "Déclaration d'accessibilité"
+  }
+}
