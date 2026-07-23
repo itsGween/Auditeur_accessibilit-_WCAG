@@ -1,0 +1,180 @@
+openapi: 3.0.0
+paths:
+  /health:
+    get:
+      operationId: HealthController_check
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+        - health
+  /sites:
+    post:
+      operationId: SiteController_create
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateSiteDto'
+      responses:
+        '201':
+          description: ''
+      tags:
+        - sites
+    get:
+      operationId: SiteController_findAll
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+        - sites
+  /sites/{id}:
+    get:
+      operationId: SiteController_findOne
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+      tags:
+        - sites
+  /sites/{siteId}/scans:
+    post:
+      operationId: ScanController_create
+      parameters:
+        - name: siteId
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        '201':
+          description: ''
+      tags:
+        - scans
+    get:
+      operationId: ScanController_findAllForSite
+      parameters:
+        - name: siteId
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+      tags:
+        - scans
+  /scans/{id}:
+    get:
+      operationId: ScanController_findOne
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+      tags:
+        - scans
+  /scans/{id}/report.csv:
+    get:
+      operationId: ReportController_getScanCsv
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+        - name: lang
+          required: false
+          in: query
+          schema:
+            default: fr
+            enum:
+              - fr
+              - en
+            type: string
+      responses:
+        '200':
+          description: ''
+      tags:
+        - reports
+  /scans/{id}/report.pdf:
+    get:
+      operationId: ReportController_getScanPdf
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+        - name: lang
+          required: false
+          in: query
+          schema:
+            default: fr
+            enum:
+              - fr
+              - en
+            type: string
+      responses:
+        '200':
+          description: ''
+      tags:
+        - reports
+  /sites/{id}/compliance-statement.pdf:
+    get:
+      operationId: ReportController_getComplianceStatementPdf
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+        - name: lang
+          required: false
+          in: query
+          schema:
+            default: fr
+            enum:
+              - fr
+              - en
+            type: string
+      responses:
+        '200':
+          description: ''
+      tags:
+        - reports
+info:
+  title: WCAG Auditor API
+  description: API pour auditer la conformité WCAG 2.1 AA des URLs publiques
+  version: 0.1.0
+  contact: {}
+tags: []
+servers: []
+components:
+  schemas:
+    CreateSiteDto:
+      type: object
+      properties:
+        url:
+          type: string
+          description: URL publique à auditer (http ou https uniquement)
+          example: https://exemple.canada.ca
+        label:
+          type: string
+          description: Étiquette lisible pour identifier le site
+          example: Site vitrine GENIXI
+      required:
+        - url
