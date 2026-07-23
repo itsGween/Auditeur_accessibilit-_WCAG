@@ -6,8 +6,7 @@
   "nav": {
     "mainNavigation": "Menu principal",
     "home": "Accueil",
-    "dashboard": "Tableau de bord",
-    "history": "Historique des scans"
+    "dashboard": "Tableau de bord"
   },
   "language": {
     "switchTo": "English",
@@ -18,12 +17,85 @@
     "accessibilityStatement": "Déclaration d'accessibilité"
   },
   "home": {
-    "intro": "Entrez l'URL publique d'une page web pour l'auditer selon les WCAG 2.1 niveau AA. Le formulaire de soumission sera ajouté à la phase 5.",
-    "startCta": "Aller au tableau de bord"
+    "intro": "Entrez l'URL publique d'une page web pour l'auditer selon les WCAG 2.1 niveau AA."
+  },
+  "scanForm": {
+    "legend": "Nouveau scan",
+    "urlLabel": "URL à auditer",
+    "urlHint": "Adresse complète, incluant http:// ou https://",
+    "labelLabel": "Étiquette (optionnel)",
+    "labelHint": "Un nom pour retrouver ce site facilement, par exemple « Site vitrine »",
+    "submit": "Lancer le scan",
+    "submitting": "Scan en cours… ceci peut prendre jusqu'à 30 secondes.",
+    "errorGeneric": "Une erreur est survenue pendant le scan. Vérifiez l'URL et réessayez.",
+    "errorSummaryHeading": "Le formulaire contient une erreur"
   },
   "dashboard": {
     "heading": "Tableau de bord",
-    "placeholder": "La liste des scans passés et leurs résultats seront affichés ici (phase 5)."
+    "intro": "Sites déjà soumis pour audit et leur dernier résultat.",
+    "empty": "Aucun site n'a encore été audité. Retournez à l'accueil pour lancer un premier scan.",
+    "table": {
+      "site": "Site",
+      "lastScan": "Dernier scan",
+      "status": "Statut",
+      "violations": "Violations",
+      "actions": "Actions"
+    },
+    "viewHistory": "Voir l'historique",
+    "noScanYet": "Aucun scan"
+  },
+  "scanStatus": {
+    "PENDING": "En attente",
+    "RUNNING": "En cours",
+    "COMPLETED": "Terminé",
+    "FAILED": "Échec"
+  },
+  "severity": {
+    "critical": "Critique",
+    "serious": "Sérieux",
+    "moderate": "Modéré",
+    "minor": "Mineur",
+    "unknown": "Non précisé"
+  },
+  "scanDetail": {
+    "heading": "Résultats du scan",
+    "loading": "Chargement des résultats…",
+    "notFound": "Ce scan est introuvable.",
+    "failed": "Le scan a échoué. L'URL est peut-être inaccessible ou invalide.",
+    "site": "Site",
+    "scanDate": "Date du scan",
+    "status": "Statut",
+    "summaryHeading": "Résumé",
+    "conformityScore": "Score de conformité",
+    "passCount": "Vérifications réussies",
+    "violationCount": "Violations détectées",
+    "violationsHeading": "Violations par sévérité",
+    "noViolations": "Aucune violation détectée pour ce niveau de sévérité.",
+    "noViolationsAtAll": "Aucune violation détectée. Ceci ne garantit pas une conformité complète (voir la déclaration d'accessibilité).",
+    "wcagCriteria": "Critères WCAG",
+    "selector": "Sélecteur",
+    "moreInfo": "Plus d'information",
+    "exportCsv": "Exporter en CSV",
+    "exportPdf": "Exporter en PDF",
+    "backToDashboard": "Retour au tableau de bord"
+  },
+  "siteHistory": {
+    "heading": "Historique du site",
+    "loading": "Chargement de l'historique…",
+    "notFound": "Ce site est introuvable.",
+    "trendHeading": "Tendance des violations",
+    "trendYAxis": "Nombre de violations",
+    "scansHeading": "Scans passés",
+    "newScan": "Lancer un nouveau scan",
+    "table": {
+      "date": "Date",
+      "status": "Statut",
+      "violations": "Violations",
+      "actions": "Actions"
+    },
+    "viewDetails": "Voir les détails",
+    "generateDeclaration": "Générer la déclaration de conformité",
+    "noScans": "Aucun scan n'a encore été effectué pour ce site."
   },
   "notFound": {
     "heading": "Page introuvable",

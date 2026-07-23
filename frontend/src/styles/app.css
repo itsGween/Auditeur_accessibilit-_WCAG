@@ -1,0 +1,126 @@
+.app-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+}
+
+.app-table caption {
+  text-align: left;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.app-table th,
+.app-table td {
+  border: 1px solid #ccc;
+  padding: 0.5rem 0.75rem;
+  text-align: left;
+  vertical-align: top;
+}
+
+.app-table th {
+  background: #f5f5f5;
+}
+
+.summary-grid {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin: 1rem 0;
+}
+
+.summary-tile {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 0.75rem 1.25rem;
+  min-width: 10rem;
+}
+
+.summary-tile .value {
+  font-size: 1.75rem;
+  font-weight: bold;
+  display: block;
+}
+
+.summary-tile .label {
+  font-size: 0.85rem;
+  color: #444;
+}
+
+.badge {
+  display: inline-block;
+  border-radius: 3px;
+  padding: 0.1rem 0.5rem;
+  font-size: 0.75rem;
+  font-weight: bold;
+  margin-left: 0.4rem;
+}
+
+.badge-critical {
+  background: #f3e9e9;
+  color: #af3c43;
+  border: 1px solid #af3c43;
+}
+
+.badge-serious {
+  background: #fbe8d5;
+  color: #8c3d00;
+  border: 1px solid #8c3d00;
+}
+
+.badge-moderate {
+  background: #fdf3d0;
+  color: #6f5500;
+  border: 1px solid #6f5500;
+}
+
+.badge-minor {
+  background: #e3f0e8;
+  color: #276a3e;
+  border: 1px solid #276a3e;
+}
+
+.badge-unknown {
+  background: #eee;
+  color: #555;
+  border: 1px solid #999;
+}
+
+.wcag-tag {
+  display: inline-block;
+  background: #26374a;
+  color: #fff;
+  border-radius: 3px;
+  padding: 0.1rem 0.5rem;
+  font-size: 0.75rem;
+  margin-right: 0.3rem;
+}
+
+.violation-card {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 0.75rem 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.violation-card pre {
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 0.5rem;
+  overflow-wrap: break-word;
+  white-space: pre-wrap;
+  font-size: 0.8rem;
+}
+
+.selector-text {
+  font-family: 'Courier New', monospace;
+  font-size: 0.85rem;
+}
+
+.export-actions {
+  display: flex;
+  gap: 0.75rem;
+  margin: 1rem 0;
+  flex-wrap: wrap;
+}

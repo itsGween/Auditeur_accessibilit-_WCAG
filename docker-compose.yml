@@ -31,6 +31,7 @@ services:
       MUTATION_API_TOKEN: ${MUTATION_API_TOKEN:-change-me}
       SCAN_TIMEOUT_MS: ${SCAN_TIMEOUT_MS:-30000}
       PORT: ${BACKEND_PORT:-3000}
+      CORS_ORIGIN: ${CORS_ORIGIN:-http://localhost:${FRONTEND_PORT:-5173}}
     ports:
       - "${BACKEND_PORT:-3000}:3000"
 

@@ -6,8 +6,7 @@
   "nav": {
     "mainNavigation": "Main menu",
     "home": "Home",
-    "dashboard": "Dashboard",
-    "history": "Scan history"
+    "dashboard": "Dashboard"
   },
   "language": {
     "switchTo": "Français",
@@ -18,12 +17,85 @@
     "accessibilityStatement": "Accessibility statement"
   },
   "home": {
-    "intro": "Enter a public web page URL to audit it against WCAG 2.1 level AA. The submission form is added in phase 5.",
-    "startCta": "Go to the dashboard"
+    "intro": "Enter a public web page URL to audit it against WCAG 2.1 level AA."
+  },
+  "scanForm": {
+    "legend": "New scan",
+    "urlLabel": "URL to audit",
+    "urlHint": "Full address, including http:// or https://",
+    "labelLabel": "Label (optional)",
+    "labelHint": "A name to find this site easily later, e.g. \"Marketing site\"",
+    "submit": "Run scan",
+    "submitting": "Scanning… this can take up to 30 seconds.",
+    "errorGeneric": "Something went wrong while scanning. Check the URL and try again.",
+    "errorSummaryHeading": "The form contains an error"
   },
   "dashboard": {
     "heading": "Dashboard",
-    "placeholder": "Past scans and their results will be listed here (phase 5)."
+    "intro": "Sites submitted for audit and their latest result.",
+    "empty": "No site has been audited yet. Go back to the home page to run a first scan.",
+    "table": {
+      "site": "Site",
+      "lastScan": "Last scan",
+      "status": "Status",
+      "violations": "Violations",
+      "actions": "Actions"
+    },
+    "viewHistory": "View history",
+    "noScanYet": "No scan yet"
+  },
+  "scanStatus": {
+    "PENDING": "Pending",
+    "RUNNING": "Running",
+    "COMPLETED": "Completed",
+    "FAILED": "Failed"
+  },
+  "severity": {
+    "critical": "Critical",
+    "serious": "Serious",
+    "moderate": "Moderate",
+    "minor": "Minor",
+    "unknown": "Unspecified"
+  },
+  "scanDetail": {
+    "heading": "Scan results",
+    "loading": "Loading results…",
+    "notFound": "This scan could not be found.",
+    "failed": "The scan failed. The URL may be unreachable or invalid.",
+    "site": "Site",
+    "scanDate": "Scan date",
+    "status": "Status",
+    "summaryHeading": "Summary",
+    "conformityScore": "Conformity score",
+    "passCount": "Passed checks",
+    "violationCount": "Violations found",
+    "violationsHeading": "Violations by severity",
+    "noViolations": "No violations found for this severity level.",
+    "noViolationsAtAll": "No violations found. This does not guarantee full conformance (see the accessibility statement).",
+    "wcagCriteria": "WCAG Criteria",
+    "selector": "Selector",
+    "moreInfo": "More information",
+    "exportCsv": "Export as CSV",
+    "exportPdf": "Export as PDF",
+    "backToDashboard": "Back to dashboard"
+  },
+  "siteHistory": {
+    "heading": "Site history",
+    "loading": "Loading history…",
+    "notFound": "This site could not be found.",
+    "trendHeading": "Violation trend",
+    "trendYAxis": "Number of violations",
+    "scansHeading": "Past scans",
+    "newScan": "Run a new scan",
+    "table": {
+      "date": "Date",
+      "status": "Status",
+      "violations": "Violations",
+      "actions": "Actions"
+    },
+    "viewDetails": "View details",
+    "generateDeclaration": "Generate compliance statement",
+    "noScans": "No scan has been run for this site yet."
   },
   "notFound": {
     "heading": "Page not found",

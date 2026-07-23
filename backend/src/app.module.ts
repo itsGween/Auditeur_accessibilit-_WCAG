@@ -4,6 +4,7 @@ import { HealthModule } from './health/health.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { SiteModule } from './site/site.module';
 import { ScanModule } from './scan/scan.module';
+import { ReportModule } from './report/report.module';
 
 @Module({
   imports: [
@@ -15,7 +16,7 @@ import { ScanModule } from './scan/scan.module';
     HealthModule,
     SiteModule,
     ScanModule,
-    // ReportModule is added in phase 3 (scan engine) / phase 5 (PDF/CSV export)
+    ReportModule,
   ],
 })
 export class AppModule {}

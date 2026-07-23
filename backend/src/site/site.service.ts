@@ -13,8 +13,11 @@ export class SiteService {
     return this.prisma.site.create({ data: dto });
   }
 
-  findAll(): Promise<Site[]> {
-    return this.prisma.site.findMany({ orderBy: { createdAt: 'desc' } });
+  findAll(): Promise<SiteWithScans[]> {
+    return this.prisma.site.findMany({
+      orderBy: { createdAt: 'desc' },
+      include: { scans: { orderBy: { startedAt: 'desc' } } },
+    });
   }
 
   async findOne(id: string): Promise<SiteWithScans> {
