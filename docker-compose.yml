@@ -19,15 +19,18 @@ services:
   backend:
     build:
       context: ./backend
-      # dockerfile added in phase 7 (CI/CD) — must extend mcr.microsoft.com/playwright
-      # so Playwright's browser binaries and system deps are already present
       dockerfile: Dockerfile
     restart: unless-stopped
     depends_on:
       postgres:
         condition: service_healthy
     environment:
-      DATABASE_URL: ${DATABASE_URL:-postgresql://wcag_auditor:change-me@postgres:5432/wcag_auditor?schema=public}
+      # Always built from the POSTGRES_* vars + the in-network "postgres" hostname,
+      # never taken from a top-level DATABASE_URL: that variable is also used for
+      # local (non-Docker) backend dev pointed at localhost:5432, and docker-compose
+      # would otherwise substitute that literal value here, making the container
+      # try to reach itself instead of the postgres service.
+      DATABASE_URL: postgresql://${POSTGRES_USER:-wcag_auditor}:${POSTGRES_PASSWORD:-change-me}@postgres:5432/${POSTGRES_DB:-wcag_auditor}?schema=public
       MUTATION_API_TOKEN: ${MUTATION_API_TOKEN:-change-me}
       SCAN_TIMEOUT_MS: ${SCAN_TIMEOUT_MS:-30000}
       PORT: ${BACKEND_PORT:-3000}
@@ -38,13 +41,16 @@ services:
   frontend:
     build:
       context: ./frontend
-      # dockerfile added in phase 7
       dockerfile: Dockerfile
+      # Vite bakes VITE_* variables into the bundle at build time, so this must
+      # be passed as a build arg, not a runtime `environment:` entry — the
+      # frontend container is just nginx serving pre-built static files, it
+      # never reads process.env at runtime.
+      args:
+        VITE_API_BASE_URL: ${VITE_API_BASE_URL:-http://localhost:3000}
     restart: unless-stopped
     depends_on:
       - backend
-    environment:
-      VITE_API_BASE_URL: ${VITE_API_BASE_URL:-http://localhost:3000}
     ports:
       - "${FRONTEND_PORT:-5173}:80"
 
