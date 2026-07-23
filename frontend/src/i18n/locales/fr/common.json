@@ -4,10 +4,10 @@
     "tagline": "Vérifiez la conformité d'une page web aux Règles pour l'accessibilité des contenus Web (WCAG) 2.1, niveau AA, et suivez son évolution dans le temps."
   },
   "nav": {
+    "mainNavigation": "Menu principal",
     "home": "Accueil",
     "dashboard": "Tableau de bord",
-    "history": "Historique des scans",
-    "skipToContent": "Passer au contenu principal"
+    "history": "Historique des scans"
   },
   "language": {
     "switchTo": "English",
@@ -16,5 +16,18 @@
   "footer": {
     "sourceCode": "Code source",
     "accessibilityStatement": "Déclaration d'accessibilité"
+  },
+  "home": {
+    "intro": "Entrez l'URL publique d'une page web pour l'auditer selon les WCAG 2.1 niveau AA. Le formulaire de soumission sera ajouté à la phase 5.",
+    "startCta": "Aller au tableau de bord"
+  },
+  "dashboard": {
+    "heading": "Tableau de bord",
+    "placeholder": "La liste des scans passés et leurs résultats seront affichés ici (phase 5)."
+  },
+  "notFound": {
+    "heading": "Page introuvable",
+    "description": "La page que vous cherchez n'existe pas ou a été déplacée.",
+    "backLink": "Retour à l'accueil"
   }
 }
