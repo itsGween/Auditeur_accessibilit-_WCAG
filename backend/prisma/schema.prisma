@@ -1,0 +1,52 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Site {
+  id        String   @id @default(uuid())
+  url       String
+  label     String?
+  createdAt DateTime @default(now())
+  scans     Scan[]
+}
+
+model Scan {
+  id             String      @id @default(uuid())
+  siteId         String
+  site           Site        @relation(fields: [siteId], references: [id])
+  status         ScanStatus  @default(PENDING)
+  startedAt      DateTime    @default(now())
+  finishedAt     DateTime?
+  passCount      Int?
+  violationCount Int?
+  violations     Violation[]
+
+  @@index([siteId])
+}
+
+enum ScanStatus {
+  PENDING
+  RUNNING
+  COMPLETED
+  FAILED
+}
+
+model Violation {
+  id             String @id @default(uuid())
+  scanId         String
+  scan           Scan   @relation(fields: [scanId], references: [id])
+  ruleId         String
+  impact         String
+  wcagCriteria   String[]
+  description    String
+  helpUrl        String
+  htmlSnippet    String
+  targetSelector String
+
+  @@index([scanId])
+}

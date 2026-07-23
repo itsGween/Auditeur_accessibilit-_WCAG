@@ -1,6 +1,9 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { HealthModule } from './health/health.module';
+import { PrismaModule } from './prisma/prisma.module';
+import { SiteModule } from './site/site.module';
+import { ScanModule } from './scan/scan.module';
 
 @Module({
   imports: [
@@ -8,8 +11,11 @@ import { HealthModule } from './health/health.module';
       isGlobal: true,
       envFilePath: '../.env',
     }),
+    PrismaModule,
     HealthModule,
-    // SiteModule, ScanModule, and ReportModule are added in phase 2 and phase 3
+    SiteModule,
+    ScanModule,
+    // ReportModule is added in phase 3 (scan engine) / phase 5 (PDF/CSV export)
   ],
 })
 export class AppModule {}
