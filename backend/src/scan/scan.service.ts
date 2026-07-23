@@ -1,12 +1,20 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { Prisma, Scan } from '@prisma/client';
 import { PrismaService } from '../prisma/prisma.service';
+import { ScanEngineService } from './scan-engine.service';
 
 type ScanWithViolations = Prisma.ScanGetPayload<{ include: { violations: true } }>;
 
+const DEFAULT_SCAN_TIMEOUT_MS = 30000;
+
 @Injectable()
 export class ScanService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly scanEngine: ScanEngineService,
+    private readonly config: ConfigService,
+  ) {}
 
   async create(siteId: string): Promise<Scan> {
     const site = await this.prisma.site.findUnique({ where: { id: siteId } });
@@ -14,9 +22,35 @@ export class ScanService {
       throw new NotFoundException(`Site ${siteId} introuvable`);
     }
 
-    // Status stays PENDING here; the scan engine (phase 3) is responsible for
-    // running Playwright + axe-core and transitioning it to RUNNING/COMPLETED/FAILED.
-    return this.prisma.scan.create({ data: { siteId } });
+    const scan = await this.prisma.scan.create({ data: { siteId, status: 'RUNNING' } });
+
+    try {
+      const timeoutMs =
+        Number(this.config.get<string>('SCAN_TIMEOUT_MS')) || DEFAULT_SCAN_TIMEOUT_MS;
+      const { violations, passCount } = await this.scanEngine.run(site.url, timeoutMs);
+
+      if (violations.length > 0) {
+        await this.prisma.violation.createMany({
+          data: violations.map((violation) => ({ ...violation, scanId: scan.id })),
+        });
+      }
+
+      return await this.prisma.scan.update({
+        where: { id: scan.id },
+        data: {
+          status: 'COMPLETED',
+          finishedAt: new Date(),
+          passCount,
+          violationCount: violations.length,
+        },
+      });
+    } catch (error) {
+      await this.prisma.scan.update({
+        where: { id: scan.id },
+        data: { status: 'FAILED', finishedAt: new Date() },
+      });
+      throw error;
+    }
   }
 
   findAllForSite(siteId: string): Promise<Scan[]> {
