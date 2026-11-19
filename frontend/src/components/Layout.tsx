@@ -1,7 +1,13 @@
 import { useEffect } from 'react';
 import { Navigate, Outlet, useLocation, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { GcdsContainer, GcdsFooter, GcdsHeader, GcdsNavLink, GcdsTopNav } from '@gcds-core/components-react';
+import {
+  GcdsContainer,
+  GcdsFooter,
+  GcdsHeader,
+  GcdsNavLink,
+  GcdsTopNav,
+} from '@gcds-core/components-react';
 import { DEFAULT_LANGUAGE, isSupportedLanguage, SupportedLanguage } from '../i18n/languages';
 
 function withLang(pathname: string, lang: SupportedLanguage): string {
