@@ -30,6 +30,12 @@
     "errorGeneric": "Something went wrong while scanning. Check the URL and try again.",
     "errorSummaryHeading": "The form contains an error"
   },
+  "auth": {
+    "tokenLabel": "Access token (optional)",
+    "tokenHint": "Only needed if the server is protected by a token. It is kept in this tab only and cleared when the tab closes.",
+    "unauthorized": "The server refused the request: the access token is missing or invalid. Check the token and try again.",
+    "unauthorizedRescan": "The server refused the request: the access token is missing or invalid. Enter the token in the form on the home page, then try again."
+  },
   "dashboard": {
     "heading": "Dashboard",
     "intro": "Sites submitted for audit and their latest result.",

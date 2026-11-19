@@ -2,7 +2,8 @@ import { FormEvent, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router-dom';
 import { GcdsButton, GcdsFieldset, GcdsInput, GcdsText } from '@gcds-core/components-react';
-import { ApiError } from '../api/client';
+import { getStoredAccessToken, setStoredAccessToken } from '../api/accessToken';
+import { ApiError, isUnauthorized } from '../api/client';
 import { createSite } from '../api/sites';
 import { createScan } from '../api/scans';
 
@@ -12,19 +13,27 @@ export function ScanForm(): JSX.Element {
   const { lang } = useParams<{ lang: string }>();
   const [url, setUrl] = useState('');
   const [label, setLabel] = useState('');
+  const [accessToken, setAccessToken] = useState(() => getStoredAccessToken() ?? '');
   const [submitting, setSubmitting] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [urlError, setUrlError] = useState<string | null>(null);
+  const [tokenError, setTokenError] = useState<string | null>(null);
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>): Promise<void> {
     event.preventDefault();
-    setError(null);
+    setUrlError(null);
+    setTokenError(null);
     setSubmitting(true);
+    setStoredAccessToken(accessToken);
     try {
       const site = await createSite(url.trim(), label.trim() || undefined);
       const scan = await createScan(site.id);
       navigate(`/${lang}/scans/${scan.id}`);
     } catch (err) {
-      setError(err instanceof ApiError ? err.message : t('scanForm.errorGeneric'));
+      if (isUnauthorized(err)) {
+        setTokenError(t('auth.unauthorized'));
+      } else {
+        setUrlError(err instanceof ApiError ? err.message : t('scanForm.errorGeneric'));
+      }
       setSubmitting(false);
     }
   }
@@ -41,7 +50,7 @@ export function ScanForm(): JSX.Element {
           value={url}
           required
           disabled={submitting}
-          errorMessage={error ?? undefined}
+          errorMessage={urlError ?? undefined}
           onGcdsInput={(e) => setUrl(e.detail)}
         />
         <GcdsInput
@@ -53,6 +62,18 @@ export function ScanForm(): JSX.Element {
           value={label}
           disabled={submitting}
           onGcdsInput={(e) => setLabel(e.detail)}
+        />
+        <GcdsInput
+          inputId="scan-access-token"
+          name="accessToken"
+          type="password"
+          autocomplete="off"
+          label={t('auth.tokenLabel')}
+          hint={t('auth.tokenHint')}
+          value={accessToken}
+          disabled={submitting}
+          errorMessage={tokenError ?? undefined}
+          onGcdsInput={(e) => setAccessToken(e.detail)}
         />
       </GcdsFieldset>
       <GcdsButton type="submit" disabled={submitting}>

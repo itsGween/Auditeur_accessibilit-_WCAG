@@ -21,9 +21,13 @@ paths:
               $ref: '#/components/schemas/CreateSiteDto'
       responses:
         '201':
-          description: ''
+          description: Site créé
+        '401':
+          description: Jeton d'accès (MUTATION_API_TOKEN) manquant ou invalide
       tags:
         - sites
+      security:
+        - bearer: []
     get:
       operationId: SiteController_findAll
       parameters: []
@@ -57,9 +61,13 @@ paths:
             type: string
       responses:
         '201':
-          description: ''
+          description: Scan exécuté de façon synchrone; renvoie le scan COMPLETED
+        '401':
+          description: Jeton d'accès (MUTATION_API_TOKEN) manquant ou invalide
       tags:
         - scans
+      security:
+        - bearer: []
     get:
       operationId: ScanController_findAllForSite
       parameters:
@@ -164,6 +172,14 @@ info:
 tags: []
 servers: []
 components:
+  securitySchemes:
+    bearer:
+      scheme: bearer
+      bearerFormat: opaque
+      type: http
+      description: >-
+        Jeton partagé MUTATION_API_TOKEN, exigé pour les routes
+        POST/PUT/PATCH/DELETE. Les routes GET restent publiques.
   schemas:
     CreateSiteDto:
       type: object

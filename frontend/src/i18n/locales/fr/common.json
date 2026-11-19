@@ -30,6 +30,12 @@
     "errorGeneric": "Une erreur est survenue pendant le scan. Vérifiez l'URL et réessayez.",
     "errorSummaryHeading": "Le formulaire contient une erreur"
   },
+  "auth": {
+    "tokenLabel": "Jeton d'accès (optionnel)",
+    "tokenHint": "Requis seulement si le serveur est protégé par un jeton. Il est conservé dans cet onglet uniquement et effacé à sa fermeture.",
+    "unauthorized": "Le serveur a refusé la demande : le jeton d'accès est manquant ou invalide. Vérifiez le jeton et réessayez.",
+    "unauthorizedRescan": "Le serveur a refusé la demande : le jeton d'accès est manquant ou invalide. Saisissez le jeton dans le formulaire de la page d'accueil, puis réessayez."
+  },
   "dashboard": {
     "heading": "Tableau de bord",
     "intro": "Sites déjà soumis pour audit et leur dernier résultat.",
