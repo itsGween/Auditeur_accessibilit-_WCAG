@@ -188,7 +188,10 @@ components:
       properties:
         url:
           type: string
-          description: URL publique à auditer (http ou https uniquement)
+          description: >-
+            URL publique à auditer (http ou https uniquement). Normalisée côté
+            serveur : espaces retirés, schéma et domaine en minuscules, fragment
+            (#...) retiré. Une URL déjà connue réutilise le site existant.
           example: https://exemple.canada.ca
         label:
           type: string
