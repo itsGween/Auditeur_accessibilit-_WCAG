@@ -43,7 +43,11 @@ export function DashboardPage(): JSX.Element {
               return (
                 <tr key={site.id}>
                   <td>{site.label || site.url}</td>
-                  <td>{latestScan ? formatDate(latestScan.startedAt, validLang) : t('dashboard.noScanYet')}</td>
+                  <td>
+                    {latestScan
+                      ? formatDate(latestScan.startedAt, validLang)
+                      : t('dashboard.noScanYet')}
+                  </td>
                   <td>{latestScan ? t(`scanStatus.${latestScan.status}`) : '—'}</td>
                   <td>{latestScan?.violationCount ?? '—'}</td>
                   <td>
