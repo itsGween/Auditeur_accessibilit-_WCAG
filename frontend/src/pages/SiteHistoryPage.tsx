@@ -11,11 +11,12 @@ import {
   YAxis,
 } from 'recharts';
 import { GcdsHeading, GcdsLink, GcdsText } from '@gcds-core/components-react';
+import { RescanButton } from '../components/RescanButton';
 import { getSite } from '../api/sites';
 import { complianceStatementPdfUrl } from '../api/reports';
 import { SiteWithScans } from '../api/types';
 import { isSupportedLanguage } from '../i18n/languages';
-import { formatDate } from '../utils/format';
+import { formatChartTick, formatDate } from '../utils/format';
 
 export function SiteHistoryPage(): JSX.Element {
   const { t } = useTranslation();
@@ -50,12 +51,12 @@ export function SiteHistoryPage(): JSX.Element {
   }
 
   const completedScans = site.scans.filter((scan) => scan.status === 'COMPLETED');
-  const chartData = [...completedScans]
-    .reverse()
-    .map((scan) => ({
-      date: formatDate(scan.startedAt, validLang),
-      violations: scan.violationCount ?? 0,
-    }));
+  // Keyed by the scan's ISO timestamp (unique per scan), not by a formatted date: two scans run
+  // within the same minute would otherwise share one x-axis category and look like one point.
+  const chartData = [...completedScans].reverse().map((scan) => ({
+    startedAt: scan.startedAt,
+    violations: scan.violationCount ?? 0,
+  }));
 
   return (
     <>
@@ -64,6 +65,8 @@ export function SiteHistoryPage(): JSX.Element {
         <strong>{site.label || site.url}</strong>
         {site.label && <> — {site.url}</>}
       </p>
+
+      <RescanButton siteId={site.id} />
 
       <div className="export-actions">
         <Link to={`/${validLang}`}>{t('siteHistory.newScan')}</Link>
@@ -80,13 +83,27 @@ export function SiteHistoryPage(): JSX.Element {
           <ResponsiveContainer width="100%" height={300}>
             <LineChart data={chartData}>
               <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="date" />
+              <XAxis
+                dataKey="startedAt"
+                tickFormatter={(value: string) => formatChartTick(value, validLang)}
+              />
               <YAxis
                 allowDecimals={false}
                 label={{ value: t('siteHistory.trendYAxis'), angle: -90, position: 'insideLeft' }}
               />
-              <Tooltip />
-              <Line type="monotone" dataKey="violations" stroke="#af3c43" strokeWidth={2} />
+              <Tooltip
+                labelFormatter={(value: string) => formatDate(value, validLang)}
+                formatter={(value: number) => [value, t('siteHistory.trendYAxis')]}
+              />
+              <Line
+                type="monotone"
+                dataKey="violations"
+                stroke="#af3c43"
+                strokeWidth={2}
+                dot={{ r: 5, fill: '#af3c43' }}
+                activeDot={{ r: 7 }}
+                isAnimationActive={false}
+              />
             </LineChart>
           </ResponsiveContainer>
         </>

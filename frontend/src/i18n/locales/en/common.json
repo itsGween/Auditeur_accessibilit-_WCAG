@@ -30,6 +30,12 @@
     "errorGeneric": "Something went wrong while scanning. Check the URL and try again.",
     "errorSummaryHeading": "The form contains an error"
   },
+  "auth": {
+    "tokenLabel": "Access token (optional)",
+    "tokenHint": "Only needed if the server is protected by a token. It is kept in this tab only and cleared when the tab closes.",
+    "unauthorized": "The server refused the request: the access token is missing or invalid. Check the token and try again.",
+    "unauthorizedRescan": "The server refused the request: the access token is missing or invalid. Enter the token in the form on the home page, then try again."
+  },
   "dashboard": {
     "heading": "Dashboard",
     "intro": "Sites submitted for audit and their latest result.",
@@ -77,7 +83,14 @@
     "moreInfo": "More information",
     "exportCsv": "Export as CSV",
     "exportPdf": "Export as PDF",
-    "backToDashboard": "Back to dashboard"
+    "backToDashboard": "Back to dashboard",
+    "viewSiteHistory": "View this site's history and trend"
+  },
+  "rescan": {
+    "button": "Run the scan again",
+    "running": "Scanning… this can take up to 30 seconds.",
+    "failed": "The new scan could not be started. Try again in a few moments.",
+    "failedWithReason": "The new scan could not be started: {{reason}}"
   },
   "siteHistory": {
     "heading": "Site history",
@@ -86,7 +99,7 @@
     "trendHeading": "Violation trend",
     "trendYAxis": "Number of violations",
     "scansHeading": "Past scans",
-    "newScan": "Run a new scan",
+    "newScan": "Scan another page",
     "table": {
       "date": "Date",
       "status": "Status",

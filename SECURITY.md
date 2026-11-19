@@ -23,6 +23,7 @@ Ces éléments sont documentés ici pour transparence, pas comme une invitation 
 - **Validation d'URL** : seuls les protocoles `http` et `https` sont acceptés pour une soumission de scan.
 - **Protection SSRF** : l'hôte cible est résolu par DNS au moment du scan (pas seulement à la soumission) et rejeté s'il pointe vers une plage d'adresses privée, locale ou réservée (voir `backend/src/scan/url-safety.ts`).
 - **Délai d'exécution** : chaque scan est borné par un délai configurable (`SCAN_TIMEOUT_MS`) pour éviter qu'une page cible bloque indéfiniment le navigateur headless.
+- **Jeton sur les routes de modification** : les routes `POST`/`PUT`/`PATCH`/`DELETE` exigent `Authorization: Bearer <MUTATION_API_TOKEN>`, comparé en temps constant (`backend/src/common/mutation-token.guard.ts`). C'est un secret partagé unique, pas une authentification par utilisateur.
 - **Validation stricte des entrées** : tous les DTO d'API sont validés via `class-validator`, avec rejet des propriétés non attendues (`forbidNonWhitelisted`).
 - **Contenu non fiable échappé** : le HTML extrait des pages scannées (utilisé dans les rapports PDF/CSV) est systématiquement échappé avant d'être réinjecté dans un document généré, puisqu'il provient d'une source externe non fiable.
 
@@ -58,6 +59,7 @@ These are documented here for transparency, not as an invitation to skip reporti
 - **URL validation**: only `http` and `https` protocols are accepted for a scan submission.
 - **SSRF protection**: the target host is DNS-resolved at scan time (not just at submission) and rejected if it resolves to a private, local, or reserved address range (see `backend/src/scan/url-safety.ts`).
 - **Execution timeout**: every scan is bounded by a configurable timeout (`SCAN_TIMEOUT_MS`) so a target page can't block the headless browser indefinitely.
+- **Token on state-changing routes**: `POST`/`PUT`/`PATCH`/`DELETE` routes require `Authorization: Bearer <MUTATION_API_TOKEN>`, compared in constant time (`backend/src/common/mutation-token.guard.ts`). It is a single shared secret, not per-user authentication.
 - **Strict input validation**: all API DTOs are validated via `class-validator`, rejecting unexpected properties (`forbidNonWhitelisted`).
 - **Untrusted content is escaped**: HTML extracted from scanned pages (used in PDF/CSV reports) is always escaped before being embedded in a generated document, since it originates from an untrusted external source.
 

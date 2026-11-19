@@ -26,11 +26,12 @@ Ce projet est une pièce de portfolio technique de [Gween Kangah](https://gweenk
 - Scan réel de la page (navigateur headless Playwright + moteur de règles axe-core), pas un simple fetch HTML statique
 - Catégorisation de chaque violation : règle axe-core, niveau d'impact, critère(s) WCAG 2.1, extrait HTML fautif, sélecteur CSS
 - Tableau de bord des scans passés, avec score de conformité résumé
-- Historique par site et graphique de tendance du nombre de violations
+- Historique par URL et graphique de tendance du nombre de violations : une URL déjà connue (après normalisation : schéma et domaine en minuscules, sans fragment) réutilise le même site, et le bouton « Relancer une analyse » ajoute un point à la tendance
 - Export d'un rapport de scan en **PDF** et en **CSV**
 - Génération d'une **déclaration de conformité** au format d'une déclaration d'accessibilité gouvernementale (méthodologie, portée, limitations connues, date)
 - Interface **entièrement bilingue** FR/EN, avec contenu dupliqué (pas seulement des libellés traduits) et une URL distincte par langue (`/fr/...`, `/en/...`)
 - Protection SSRF : seules les URLs http/https résolvant vers une adresse publique peuvent être scannées
+- Jeton d'accès minimal (`MUTATION_API_TOKEN`) sur les routes de modification, voir [Jeton d'accès](#jeton-daccès)
 
 ## Architecture
 
@@ -91,6 +92,21 @@ npm run dev
 
 Voir [CONTRIBUTING.md](CONTRIBUTING.md) pour les instructions complètes de mise en route et le workflow de contribution.
 
+### Jeton d'accès
+
+Les routes qui modifient des données (`POST`, `PUT`, `PATCH`, `DELETE`) exigent l'en-tête `Authorization: Bearer <jeton>`, où le jeton est la valeur de `MUTATION_API_TOKEN`. Les routes `GET` (consultation, rapports) restent publiques. La comparaison se fait en temps constant; un jeton absent ou faux renvoie `401`.
+
+| `MUTATION_API_TOKEN` | Comportement |
+|---|---|
+| Défini | Jeton exigé sur les routes de modification |
+| Vide ou absent, hors production | Routes ouvertes, avec un avertissement au démarrage (développement local) |
+| Vide ou absent, `NODE_ENV=production` | Routes de modification refusées (`401`) |
+| `change-me` (valeur d'exemple) | Jeton exigé, avec un avertissement au démarrage : à remplacer avant tout déploiement public |
+
+Dans l'interface, le champ **Jeton d'accès (optionnel)** du formulaire de scan envoie ce jeton. Il est conservé dans `sessionStorage` (onglet courant seulement), jamais dans une variable `VITE_*`, qui serait lisible par tous dans le bundle JavaScript.
+
+Ce jeton est un garde-fou minimal, pas une authentification multi-utilisateur (voir la feuille de route).
+
 ## Tests
 
 ```
@@ -98,7 +114,7 @@ cd backend
 npm test
 ```
 
-Les tests unitaires couvrent notamment la logique de catégorisation (mapping règle axe-core → critère WCAG) et la protection SSRF — voir `backend/src/scan/*.spec.ts`.
+Les tests unitaires couvrent notamment la logique de catégorisation (mapping règle axe-core → critère WCAG) et la protection SSRF (voir `backend/src/scan/*.spec.ts`), ainsi que le jeton d'accès (`backend/src/common/mutation-token.guard.spec.ts`).
 
 ## Documentation
 

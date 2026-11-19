@@ -26,11 +26,12 @@ This project is a technical portfolio piece by [Gween Kangah](https://gweenkanga
 - Real page scanning (headless Playwright browser + axe-core rules engine), not a plain static HTML fetch
 - Categorization of every violation: axe-core rule, impact level, WCAG 2.1 criterion/criteria, offending HTML snippet, CSS selector
 - Dashboard of past scans, with a summary conformity score
-- Per-site history and a violation-count trend chart
+- Per-URL history and a violation-count trend chart: an already-known URL (after normalization: lowercase scheme and host, no fragment) reuses the same site, and the "Run the scan again" button adds a point to the trend
 - Export a scan report as **PDF** and **CSV**
 - Generate a **compliance statement** in the format of a government accessibility statement (methodology, scope, known limitations, date)
 - **Fully bilingual** FR/EN interface, with duplicated content (not just translated labels) and a distinct URL per language (`/fr/...`, `/en/...`)
 - SSRF protection: only http/https URLs resolving to a public address can be scanned
+- Minimal access token (`MUTATION_API_TOKEN`) on state-changing routes, see [Access token](#access-token)
 
 ## Architecture
 
@@ -91,6 +92,21 @@ npm run dev
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for full setup instructions and the contribution workflow.
 
+### Access token
+
+Routes that change data (`POST`, `PUT`, `PATCH`, `DELETE`) require the `Authorization: Bearer <token>` header, where the token is the value of `MUTATION_API_TOKEN`. `GET` routes (viewing, reports) stay public. The comparison runs in constant time; a missing or wrong token returns `401`.
+
+| `MUTATION_API_TOKEN` | Behaviour |
+|---|---|
+| Set | Token required on state-changing routes |
+| Empty or absent, outside production | Routes open, with a startup warning (local development) |
+| Empty or absent, `NODE_ENV=production` | State-changing routes refused (`401`) |
+| `change-me` (example value) | Token required, with a startup warning: replace it before any public deployment |
+
+In the UI, the scan form's **Access token (optional)** field sends this token. It is kept in `sessionStorage` (current tab only), never in a `VITE_*` variable, which anyone could read in the JavaScript bundle.
+
+This token is a minimal safeguard, not multi-user authentication (see the roadmap).
+
 ## Tests
 
 ```
@@ -98,7 +114,7 @@ cd backend
 npm test
 ```
 
-Unit tests cover the categorization logic (axe-core rule → WCAG criterion mapping) and SSRF protection in particular — see `backend/src/scan/*.spec.ts`.
+Unit tests cover the categorization logic (axe-core rule → WCAG criterion mapping) and SSRF protection in particular (see `backend/src/scan/*.spec.ts`), as well as the access token (`backend/src/common/mutation-token.guard.spec.ts`).
 
 ## Documentation
 

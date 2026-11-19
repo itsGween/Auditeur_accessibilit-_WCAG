@@ -1,7 +1,13 @@
 import { useEffect } from 'react';
 import { Navigate, Outlet, useLocation, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { GcdsContainer, GcdsFooter, GcdsHeader, GcdsNavLink, GcdsTopNav } from '@gcds-core/components-react';
+import {
+  GcdsContainer,
+  GcdsFooter,
+  GcdsHeader,
+  GcdsNavLink,
+  GcdsTopNav,
+} from '@gcds-core/components-react';
 import { DEFAULT_LANGUAGE, isSupportedLanguage, SupportedLanguage } from '../i18n/languages';
 
 function withLang(pathname: string, lang: SupportedLanguage): string {
@@ -55,9 +61,17 @@ export function Layout(): JSX.Element {
           </GcdsNavLink>
         </GcdsTopNav>
       </GcdsHeader>
-      <GcdsContainer id="main-content" tag="main" size="xl" padding="400" tabIndex={-1}>
-        <Outlet key={validLang} />
-      </GcdsContainer>
+      {/*
+        The skip link's target (#main-content, tabIndex -1 so it can receive focus) must be a
+        plain element, not the GcdsContainer web component: a negative tabindex on a shadow
+        host removes everything inside it from sequential Tab navigation, which made the whole
+        page content (scan form included) unreachable by keyboard.
+      */}
+      <main id="main-content" tabIndex={-1}>
+        <GcdsContainer tag="div" size="xl" padding="400">
+          <Outlet key={validLang} />
+        </GcdsContainer>
+      </main>
       <GcdsFooter display="compact" lang={validLang} />
     </>
   );
