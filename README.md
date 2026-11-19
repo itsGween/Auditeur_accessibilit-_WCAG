@@ -26,7 +26,7 @@ Ce projet est une pièce de portfolio technique de [Gween Kangah](https://gweenk
 - Scan réel de la page (navigateur headless Playwright + moteur de règles axe-core), pas un simple fetch HTML statique
 - Catégorisation de chaque violation : règle axe-core, niveau d'impact, critère(s) WCAG 2.1, extrait HTML fautif, sélecteur CSS
 - Tableau de bord des scans passés, avec score de conformité résumé
-- Historique par site et graphique de tendance du nombre de violations
+- Historique par URL et graphique de tendance du nombre de violations : une URL déjà connue (après normalisation : schéma et domaine en minuscules, sans fragment) réutilise le même site, et le bouton « Relancer une analyse » ajoute un point à la tendance
 - Export d'un rapport de scan en **PDF** et en **CSV**
 - Génération d'une **déclaration de conformité** au format d'une déclaration d'accessibilité gouvernementale (méthodologie, portée, limitations connues, date)
 - Interface **entièrement bilingue** FR/EN, avec contenu dupliqué (pas seulement des libellés traduits) et une URL distincte par langue (`/fr/...`, `/en/...`)

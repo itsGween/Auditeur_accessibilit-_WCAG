@@ -83,7 +83,14 @@
     "moreInfo": "Plus d'information",
     "exportCsv": "Exporter en CSV",
     "exportPdf": "Exporter en PDF",
-    "backToDashboard": "Retour au tableau de bord"
+    "backToDashboard": "Retour au tableau de bord",
+    "viewSiteHistory": "Voir l'historique et la tendance de ce site"
+  },
+  "rescan": {
+    "button": "Relancer une analyse",
+    "running": "Analyse en cours… ceci peut prendre jusqu'à 30 secondes.",
+    "failed": "La nouvelle analyse n'a pas pu être lancée. Réessayez dans quelques instants.",
+    "failedWithReason": "La nouvelle analyse n'a pas pu être lancée : {{reason}}"
   },
   "siteHistory": {
     "heading": "Historique du site",
@@ -92,7 +99,7 @@
     "trendHeading": "Tendance des violations",
     "trendYAxis": "Nombre de violations",
     "scansHeading": "Scans passés",
-    "newScan": "Lancer un nouveau scan",
+    "newScan": "Analyser une autre page",
     "table": {
       "date": "Date",
       "status": "Statut",

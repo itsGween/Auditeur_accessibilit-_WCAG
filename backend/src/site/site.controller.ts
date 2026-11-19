@@ -15,7 +15,10 @@ export class SiteController {
 
   @Post()
   @ApiBearerAuth()
-  @ApiCreatedResponse({ description: 'Site créé' })
+  @ApiCreatedResponse({
+    description:
+      "Site créé, ou site existant renvoyé si l'URL normalisée (schéma et domaine en minuscules, sans fragment) est déjà connue",
+  })
   @ApiUnauthorizedResponse({
     description: "Jeton d'accès (MUTATION_API_TOKEN) manquant ou invalide",
   })

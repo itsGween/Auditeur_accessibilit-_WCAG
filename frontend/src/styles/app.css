@@ -118,6 +118,10 @@
   font-size: 0.85rem;
 }
 
+.rescan {
+  margin: 1rem 0;
+}
+
 .export-actions {
   display: flex;
   gap: 0.75rem;

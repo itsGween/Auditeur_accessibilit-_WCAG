@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, useParams } from 'react-router-dom';
 import { GcdsHeading, GcdsLink, GcdsText } from '@gcds-core/components-react';
+import { RescanButton } from '../components/RescanButton';
 import { getScan } from '../api/scans';
 import { scanCsvUrl, scanPdfUrl } from '../api/reports';
 import { ScanWithViolations } from '../api/types';
@@ -58,6 +59,11 @@ export function ScanDetailPage(): JSX.Element {
       </p>
 
       {scan.status === 'FAILED' && <GcdsText>{t('scanDetail.failed')}</GcdsText>}
+
+      <RescanButton siteId={scan.siteId} />
+      <p>
+        <Link to={`/${validLang}/sites/${scan.siteId}`}>{t('scanDetail.viewSiteHistory')}</Link>
+      </p>
 
       {scan.status === 'COMPLETED' && (
         <>

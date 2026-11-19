@@ -21,7 +21,9 @@ paths:
               $ref: '#/components/schemas/CreateSiteDto'
       responses:
         '201':
-          description: Site créé
+          description: >-
+            Site créé, ou site existant renvoyé si l'URL normalisée (schéma et
+            domaine en minuscules, sans fragment) est déjà connue
         '401':
           description: Jeton d'accès (MUTATION_API_TOKEN) manquant ou invalide
       tags:

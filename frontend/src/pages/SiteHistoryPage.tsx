@@ -11,6 +11,7 @@ import {
   YAxis,
 } from 'recharts';
 import { GcdsHeading, GcdsLink, GcdsText } from '@gcds-core/components-react';
+import { RescanButton } from '../components/RescanButton';
 import { getSite } from '../api/sites';
 import { complianceStatementPdfUrl } from '../api/reports';
 import { SiteWithScans } from '../api/types';
@@ -50,12 +51,10 @@ export function SiteHistoryPage(): JSX.Element {
   }
 
   const completedScans = site.scans.filter((scan) => scan.status === 'COMPLETED');
-  const chartData = [...completedScans]
-    .reverse()
-    .map((scan) => ({
-      date: formatDate(scan.startedAt, validLang),
-      violations: scan.violationCount ?? 0,
-    }));
+  const chartData = [...completedScans].reverse().map((scan) => ({
+    date: formatDate(scan.startedAt, validLang),
+    violations: scan.violationCount ?? 0,
+  }));
 
   return (
     <>
@@ -64,6 +63,8 @@ export function SiteHistoryPage(): JSX.Element {
         <strong>{site.label || site.url}</strong>
         {site.label && <> — {site.url}</>}
       </p>
+
+      <RescanButton siteId={site.id} />
 
       <div className="export-actions">
         <Link to={`/${validLang}`}>{t('siteHistory.newScan')}</Link>

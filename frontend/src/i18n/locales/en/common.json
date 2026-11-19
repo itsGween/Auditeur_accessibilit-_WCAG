@@ -83,7 +83,14 @@
     "moreInfo": "More information",
     "exportCsv": "Export as CSV",
     "exportPdf": "Export as PDF",
-    "backToDashboard": "Back to dashboard"
+    "backToDashboard": "Back to dashboard",
+    "viewSiteHistory": "View this site's history and trend"
+  },
+  "rescan": {
+    "button": "Run the scan again",
+    "running": "Scanning… this can take up to 30 seconds.",
+    "failed": "The new scan could not be started. Try again in a few moments.",
+    "failedWithReason": "The new scan could not be started: {{reason}}"
   },
   "siteHistory": {
     "heading": "Site history",
@@ -92,7 +99,7 @@
     "trendHeading": "Violation trend",
     "trendYAxis": "Number of violations",
     "scansHeading": "Past scans",
-    "newScan": "Run a new scan",
+    "newScan": "Scan another page",
     "table": {
       "date": "Date",
       "status": "Status",

@@ -26,7 +26,7 @@ This project is a technical portfolio piece by [Gween Kangah](https://gweenkanga
 - Real page scanning (headless Playwright browser + axe-core rules engine), not a plain static HTML fetch
 - Categorization of every violation: axe-core rule, impact level, WCAG 2.1 criterion/criteria, offending HTML snippet, CSS selector
 - Dashboard of past scans, with a summary conformity score
-- Per-site history and a violation-count trend chart
+- Per-URL history and a violation-count trend chart: an already-known URL (after normalization: lowercase scheme and host, no fragment) reuses the same site, and the "Run the scan again" button adds a point to the trend
 - Export a scan report as **PDF** and **CSV**
 - Generate a **compliance statement** in the format of a government accessibility statement (methodology, scope, known limitations, date)
 - **Fully bilingual** FR/EN interface, with duplicated content (not just translated labels) and a distinct URL per language (`/fr/...`, `/en/...`)
